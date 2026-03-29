@@ -14,6 +14,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  /* Increase global test timeout */
+  timeout: 60000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -31,6 +33,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Increase timeouts for slower browsers like Firefox */
+    actionTimeout: 15000,      // timeout for each action (click, fill, etc.)
+    navigationTimeout: 60000,  // timeout for page navigation (goto)
   },
 
   /* Configure projects for major browsers */
@@ -67,7 +73,7 @@ export default defineConfig({
     // },
     // {
     //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome'] },
     // },
   ],
 
@@ -78,4 +84,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-

@@ -49,41 +49,44 @@ class RegisterLoginPage{
         await this.page.goto('https://automationteststore.com/index.php?rt=account/create');
         await this.page.locator(this.selectors.firstName).fill(this.data.firstName);
         await this.page.locator(this.selectors.lastName).fill(this.data.lastName);
-        await this.page.location(this.selectors.email).fill(this.data.email);
+        await this.page.locator(this.selectors.email).fill(this.data.email);
         await this.page.locator(this.selectors.address1).fill(this.data.address1);
         await this.page.locator(this.selectors.city).fill(this.data.city);
-        await this.page.locator(this.selectors.country).fill(this.data.country);
-        await this.page.locator(this.selectors.region).fill(this.data.region);
+        await this.page.locator(this.selectors.country).selectOption(this.data.country);
+        await this.page.locator(this.selectors.region).selectOption(this.data.region);
         await this.page.locator(this.selectors.zipCode).fill(this.data.zipCode);
         await this.page.locator(this.selectors.loginName).fill(this.data.loginName);
         await this.page.locator(this.selectors.password).fill(this.data.password);
+        await this.page.locator(this.selectors.confirm).fill(this.data.password);
         await this.page.locator(this.selectors.agree).check();
-        await this.page.locator(this.selectors.continueBtnBtn).click();
+        await this.page.locator(this.selectors.continueBtn).click();
 
     }
 
     async loginWithNewUser(){
         await this.page.goto('https://automationteststore.com/index.php?rt=account/login');
         await this.page.locator(this.selectors.loginNameInput).fill(this.data.loginName);
-        await this.page.locator(this.selectors.loginPasswordInput).fill(this.data.loginPasswordInput);
+        await this.page.locator(this.selectors.loginPasswordInput).fill(this.data.password);
         await this.page.locator(this.selectors.loginBtn).click();
     }
 
     async logoutUser() {
-        await this.page.locacator(this.selectors.logoffBtn).click;
+        await this.page.locator(this.selectors.logoffBtn).click();
 
     }
 
     async assertNewUser(){
-        await expect(this.page('Your Account Has Been Created!')).toBeVisible();
+        await expect(this.page.getByText('Your Account Has Been Created!')).toBeVisible();
     }
 
-    async assertLogIn() {
-        await expect(this.page('My Account')).toBeVisible();
-    }
+async assertLogIn() {
+    // locate 'My Account' specifically inside the h1 element to avoid matching multiple elements
+    await expect(this.page.locator('h1').getByText('My Account')).toBeVisible();
+}
 
-    async assertLogOut(){
-        await expect(this.page('Account Logout')).toBeVisible();
-    }
+async assertLogOut(){
+    // use exact: true to avoid matching multiple elements that contain 'Account Logout'(appears twice)
+    await expect(this.page.getByText('Account Logout', { exact: true })).toBeVisible();
+}
 }
  module.exports = {RegisterLoginPage};
