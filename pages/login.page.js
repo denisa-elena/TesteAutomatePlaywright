@@ -38,7 +38,7 @@ class LoginPage{
         await expect(this.page).toHaveURL(/inventory.html/);
     }
 
-    async asserrtLoginError(){
+    async assertLoginError(){
         await expect(this.errorMessage).toBeVisible();
     }
 }

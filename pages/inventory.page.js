@@ -1,6 +1,8 @@
 const {expect} = require('@playwright/test');
 
 class InventoryPage {
+    //called automatically when you create a new instance of the class (new LoginPage(page))
+    //stores the page object so it can be used in the entire class
     constructor(page) {
         this.page = page;
 

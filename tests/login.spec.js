@@ -15,7 +15,7 @@ test.describe('Login tests' , () => {
         
         await loginPage.goto();
         await loginPage.login('error_user', 'abc');
-        await loginPage.asserrtLoginError();
+        await loginPage.assertLoginError();
 
     });
 })
