@@ -39,7 +39,7 @@ class LoginPage{
     }
 
     async asserrtLoginError(){
-        await expect(this.errorMessage).toBeVisible;
+        await expect(this.errorMessage).toBeVisible();
     }
 }
 
